@@ -1,4 +1,4 @@
-# AI VTuber with Ollama and Chatterbox
+# AI VTuber For Begginers/non programmers Easy To setup
 
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
