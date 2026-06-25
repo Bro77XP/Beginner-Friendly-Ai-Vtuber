@@ -2,6 +2,8 @@
 
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
+This Was Also Made On a AMD gpu But the code is mainly supported For cpu users So it can be used without amd or nvdia gpus
+
 This uses Python 3.10.11 if you don't have it as your main Version do:
 py -3.10 -m venv venv
 
