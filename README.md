@@ -2,21 +2,6 @@
 
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
-##questions
-
-Is this Ali?
-
-No this is Not ali In Fact Ali is A WAY more complicated program than this.
-<img width="1142" height="43" alt="Screenshot 2026-06-24 220422" src="https://github.com/user-attachments/assets/3ee9f637-60d5-41d9-8702-61cb6875bb3f" />
-
-This Also Doesn't use Any of ali's og code aside from How the mouth api works And Some recreated stuff Like the api being used so you can play music without having issues
-
-Does This contain Any preMade vtuber models i can Download?
-
-No But i do Have Older vtuber models you can use for this for example:
-
-https://drive.google.com/file/d/1WGdSQxnzKeirUBSKeif4En2-b8AW7yTN/view?usp=sharing (IF you Don't want to use Hyori's model and test a different one)
-
 ## Features
 
 - **Whisper** (base.en model) - Real-time speech-to-text in English
@@ -303,6 +288,27 @@ Potential future improvements:
 4. **Advanced emotion system**: More nuanced emotion detection and expression control
 5. **Stream processing**: WebSocket streaming for lower latency
 6. **Plugin architecture**: Easy addition of new features and integrations
+
+
+##questions
+
+Is this Ali?
+
+No this is Not ali In Fact Ali is A WAY more complicated program than this.
+<img width="1142" height="43" alt="Screenshot 2026-06-24 220422" src="https://github.com/user-attachments/assets/3ee9f637-60d5-41d9-8702-61cb6875bb3f" />
+
+This Also Doesn't use Any of ali's og code aside from How the mouth api works And Some recreated stuff Like the api being used so you can play music without having issues
+
+Does This contain Any preMade vtuber models i can Download?
+
+No But i do Have Older vtuber models you can use for this for example:
+
+https://drive.google.com/file/d/1WGdSQxnzKeirUBSKeif4En2-b8AW7yTN/view?usp=sharing (IF you Don't want to use Hyori's model and test a different one)
+
+Is the ai Sentient And planning arson 
+
+-Proby not Unless You Replaced Ollama with something Else
+
 
 ## License
 
