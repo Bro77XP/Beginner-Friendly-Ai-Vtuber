@@ -9,7 +9,7 @@ An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference,
 - **Chatterbox TTS** - Text-to-speech to speak responses
 - **Automatic silence detection** - Only records when speech is detected
 - **Continuous listening loop** - Runs forever until Ctrl+C
-- **VTube Studio integration** - Controls mouth expressions via VTube Studio
+- **VTube Studio integration** - Controls mouth expressions via VTube Studio Api
 
 ## Dependencies
 (IMPORTANT!!!)
