@@ -3,7 +3,6 @@
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
 ## Features
-<img width="603" height="551" alt="Screenshot 2026-06-24 214030" src="https://github.com/user-attachments/assets/63a9591e-bdb6-4928-bcb9-c79ffe403a32" />
 
 - **Whisper** (base.en model) - Real-time speech-to-text in English
 - **Ollama** (llama3.2) - AI model for generating VTuber responses
@@ -122,6 +121,7 @@ The script automatically connects to VTube Studio (port 8001) to control:
    - Input: `MouthOpen`
    - Output: `ParamMouthOpenY`
 
+<img width="603" height="551" alt="Screenshot 2026-06-24 214030" src="https://github.com/user-attachments/assets/63a9591e-bdb6-4928-bcb9-c79ffe403a32" />
 ### Configuring Animation Hotkeys
 
 **Important:** You must configure the actual hotkey IDs in VTube Studio for animations to work:
