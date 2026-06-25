@@ -2,6 +2,11 @@
 
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
+This uses Python 3.10.11 if you don't have it as your main Version do:
+py -3.10 -m venv venv
+
+(you can check the version with python -V)
+
 ## Features
 
 - **Whisper** (base.en model) - Real-time speech-to-text in English
