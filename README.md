@@ -312,4 +312,4 @@ Is the ai Sentient And planning arson
 
 ## License
 
-This project is open source. Feel free to modify and distribute as long as you give appropriate credit.
+This project is open source. Feel free to modify and distribute as long as you give appropriate credit since that's really important to get a habit out of.
