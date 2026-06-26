@@ -1,5 +1,7 @@
 # AI VTuber For Begginers/non programmers Easy To setup
 
+here's a video Tutorial on how to setup the ai vtuber https://youtu.be/b2Mr-ZUVqzo?si=ZUGchmHMS0Wb5Zv_
+
 An AI VTuber that uses Whisper for speech recognition, Ollama for LLM inference, and Chatterbox TTS in a continuous listening loop.
 
 This Was Also Made On a AMD gpu But the code is mainly supported For cpu users So it can be used without amd or nvdia gpus
