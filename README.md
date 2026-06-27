@@ -292,12 +292,8 @@ EMOTION_HOTKEYS = {
 
 Potential future improvements:
 
-1. **Local LLM alternatives**: Support for other Ollama models or local LLM implementations
-2. **Multi-language support**: Whisper language switching and response localization
-3. **Context memory**: Maintain conversation history for more coherent interactions
-4. **Advanced emotion system**: More nuanced emotion detection and expression control
-5. **Stream processing**: WebSocket streaming for lower latency
-6. **Plugin architecture**: Easy addition of new features and integrations
+--Improvements with tts speed with Chatterbox Turbo
+--improve stt
 
 
 ##questions
