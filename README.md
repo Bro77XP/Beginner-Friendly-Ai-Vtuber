@@ -14,12 +14,15 @@ py -3.10 -m venv venv
 
 ## Features
 
-- **Whisper** (base.en model) - Real-time speech-to-text in English
+- **Whisper** (base.en model) - Real-time speech-to-text in English with adaptive noise VAD
 - **Ollama** (llama3.2) - AI model for generating VTuber responses
-- **Chatterbox TTS** - Text-to-speech to speak responses
-- **Automatic silence detection** - Only records when speech is detected
+- **Chatterbox Turbo TTS** - Fast text-to-speech with zero-shot voice cloning
+- **Adaptive VAD** - Learns ambient noise floor, auto-tunes silence threshold, trims leading silence
+- **Audio normalization** - Pre-processes audio for optimal Whisper accuracy
 - **Continuous listening loop** - Runs forever until Ctrl+C
-- **VTube Studio integration** - Controls mouth expressions via VTube Studio Api
+- **VTube Studio integration** - Controls mouth expressions via VTube Studio
+- **Twitch chat integration** - Responds to Twitch chat messages in real-time
+
 
 ## Dependencies
 (IMPORTANT!!!)
