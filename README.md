@@ -304,7 +304,9 @@ Potential future improvements:
 Is this Ali?
 
 No this is Not ali In Fact Ali is A WAY more complicated program than this.
-<img width="1142" height="43" alt="Screenshot 2026-06-24 220422" src="https://github.com/user-attachments/assets/3ee9f637-60d5-41d9-8702-61cb6875bb3f" />
+
+<img width="843" height="35" alt="Screenshot 2026-06-28 161345" src="https://github.com/user-attachments/assets/7c503949-99ca-4358-8d9b-c5f5f0fa797e" />
+
 
 This Also Doesn't use Any of ali's og code aside from How the mouth api works And Some recreated stuff Like the api being used so you can play music without having issues
 
