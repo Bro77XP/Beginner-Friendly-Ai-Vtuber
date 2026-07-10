@@ -22,7 +22,7 @@ py -3.10 -m venv venv
 - **Continuous listening loop** - Runs forever until Ctrl+C
 - **VTube Studio integration** - Controls mouth expressions via VTube Studio
 - **Twitch chat integration** - Responds to Twitch chat messages in real-time
-
+- **Auto Find Emotion Based toggles** this finds and plays animations on the ai vtuber like Happy or sad
 
 ## Dependencies
 (IMPORTANT!!!)
