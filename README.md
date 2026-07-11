@@ -23,6 +23,8 @@ py -3.10 -m venv venv
 - **VTube Studio integration** - Controls mouth expressions via VTube Studio
 - **Twitch chat integration** - Responds to Twitch chat messages in real-time
 - **Auto Find Emotion Based toggles** this finds and plays animations on the ai vtuber like Happy or sad
+- **OBS Live Subtitles** - Writes timed subtitle chunks to `obs_subtitles.txt` for OBS Text Sources
+
 
 ## Dependencies
 (IMPORTANT!!!)
