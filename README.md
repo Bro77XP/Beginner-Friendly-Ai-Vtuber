@@ -20,6 +20,7 @@ py -3.10 -m venv venv
 - **Adaptive VAD** - Learns ambient noise floor, auto-tunes silence threshold, trims leading silence
 - **Audio normalization** - Pre-processes audio for optimal Whisper accuracy
 - **Continuous listening loop** - Runs forever until Ctrl+C
+- **Neural Motion Engine** - Streams natural head sway, body lean, blinking, eyebrow movement, and eye gaze from a trained TCN model
 - **VTube Studio integration** - Controls mouth expressions via VTube Studio
 - **Twitch chat integration** - Responds to Twitch chat messages in real-time
 - **Auto Find Emotion Based toggles** this finds and plays animations on the ai vtuber like Happy or sad
@@ -234,6 +235,49 @@ The AI VTuber runs in a continuous loop:
 6. **Mouth control**: VTube Studio controls mouth expressions in sync with speech
 7. **Repeat**: Returns to listening mode
 
+
+## Neural Motion Engine
+
+The motion engine loads a trained TCN model from `public_motion_model/` and streams natural idle motion into VTube Studio at 30fps. It handles:
+
+- **Head sway** - Gentle left/right and up/down head rotation
+- **Body lean** - Subtle body angle shifts
+- **Blinking** - Real blinks from the motion3 recordings (kept and remapped, not synthetic)
+- **Eye gaze** - Real eye movement (X and Y) from the motion3 recordings, centered and scaled
+- **Eyebrow motion** - Subtle brow movement
+- **Emotion-driven style** - Switches motion style when emotions are detected (happy, sad, angry, thinking)
+
+
+### How it works
+
+- On startup, all motion files from `public_motion_model/neuro network/` are parsed once into a master pool (cached to disk for instant restarts)
+- Style switches filter the pool by emotion — no file re-parsing needed
+- Mouth is **never** driven by the motion engine — only TTS amplitude controls the mouth
+- The engine queries VTS for valid tracking parameters at startup and only injects params the model supports
+- **Blinking**: each recording's eye-open column is remapped so its typical open level = fully open and its real blink dips = fully closed. Sleep/wink recordings that are mostly eyes-closed get flat-open eyes instead. Blink timing comes from the recordings, not a timer.
+- **Eye gaze**: each recording's eyeball X/Y column is centered and scaled to a visible range — the irises follow the natural movement patterns recorded in the files (no synthetic sway, no shaking)
+
+## TTS Model Options
+
+| Model | Size | Best For |
+|-------|------|----------|
+| **Chatterbox-Turbo** | 350M | Default, fast inference |
+| **Chatterbox-Nano** | 110M | Fastest, CPU-friendly |
+| **Chatterbox** | 500M | Quality mode |
+
+```bash
+python Aivtuber.py --voice-model chatterbox-turbo   # Default
+python Aivtuber.py --voice-model chatterbox-nano     # Fastest
+python Aivtuber.py --voice-model chatterbox          # Quality
+```
+
+### Voice Cloning
+
+```bash
+python Aivtuber.py --voice "C:\path\to\reference.wav"
+python Aivtuber.py --voice ref.wav --cfg-weight 0.7  # Higher = closer to reference
+```
+
 ## Notes
 
 - Press Ctrl+C to stop the VTuber at any time
@@ -242,6 +286,26 @@ The AI VTuber runs in a continuous loop:
 - Adjust `silence_threshold`, `silence_duration`, and `min_speech_duration` in the code for different environments
 
 ## Troubleshooting
+
+
+VTS Model Settings:
+
+For the neural motion engine to work, your VTS model must have these tracking parameters mapped:
+
+| VTS Input | Live2D Output |
+|-----------|---------------|
+| FaceAngleX | ParamAngleX |
+| FaceAngleY | ParamAngleY |
+| FaceAngleZ | ParamAngleZ |
+| FacePositionX | ParamBodyAngleX |
+| EyeOpenLeft | ParamEyeLOpen (+ ParamEyeROpen) |
+| EyeLeftX | ParamEyeBallX |
+| EyeLeftY | ParamEyeBallY |
+| MouthOpen | ParamMouthOpenY |
+| MouthSmile | ParamMouthForm |
+| BrowLeftY | ParamBrowLY |
+| BrowRightY | ParamBrowRY |
+
 
 ### Common Issues
 
@@ -261,6 +325,29 @@ The AI VTuber runs in a continuous loop:
 4. **Model loading issues**:
    - Whisper uses "base.en" for faster performance
    - Ensure all dependencies are installed from requirements.txt
+
+**Motion engine not moving the avatar:**
+- Check VTS is running and the plugin is allowed
+- Look for `[motion] VTS accepts:` in the console — if a parameter is missing, configure it in VTS Model Settings
+- Ensure the plugin shows as connected in VTS
+
+**Mouth not moving during speech:**
+- Verify VTS mouth mapping: Input `MouthOpen` → Output `ParamMouthOpenY`
+- Check that no other plugin is controlling the mouth parameter
+
+**Eyes stuck / not blinking:**
+- Ensure `EyeOpenLeft` is mapped in VTS Model Settings
+- Blink timing comes from the motion recordings — some play longer without blinks, watch for 10-20s
+- If eyes stay shut, delete `public_motion_model/neuro network/_master_frames.npy` and restart (rebuilds the pool)
+
+**Chatterbox Nano not loading:**
+- First run downloads ~2GB of weights from Hugging Face
+- Requires `chatterbox-tts` pip package (installed via requirements.txt)
+
+**Slow startup:**
+- First run parses all 46 motion files (~5s) — cached to disk for instant restarts
+- The master cache lives at `public_motion_model/neuro network/_master_frames.npy`
+
 
 ## Customization
 
