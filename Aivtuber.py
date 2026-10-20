@@ -486,7 +486,7 @@ class TwitchChatListener:
             pass
         time.sleep(5)
         try:
-            self.sock = ssl.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
+            self.sock = ssl.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) #as a programmer all i know is it's trying to do something (reconnect to twitch?)
             self.sock.connect((self.host, self.port))
             self.sock.settimeout(1.0)
             self._send_raw(f"PASS {TWITCH_OAUTH}")
@@ -498,7 +498,7 @@ class TwitchChatListener:
             console.print(f"[red]Twitch reconnect failed:[/red] {e}")
             self.running = False
 
-    def get_messages(self):
+    def get_messages(self): #oh so there's a message queue here i knew that totally
         messages = []
         while not self.message_queue.empty():
             messages.append(self.message_queue.get())
@@ -589,7 +589,7 @@ class AIVtuber:
         if drained > 0:
             print(f"  (flushed {drained} stale chunks)")
 
-        print("Waiting for speech...")
+        print("Waiting for speech...") #me too bud me too
         audio_buffer = []
         silence_frames = 0
         noise_floor = None
@@ -634,7 +634,7 @@ class AIVtuber:
             except queue.Empty:
                 continue
 
-        if not started:
+        if not started: #NONE ON WHAT oh wait proby the program itself.
             return None
 
         audio = np.concatenate(audio_buffer)
@@ -651,7 +651,7 @@ class AIVtuber:
         audio = audio[start_idx:]
         return audio
 
-    def transcribe(self, audio_data):
+    def transcribe(self, audio_data): #whisper proby doing something (transcribing i think)
         duration = len(audio_data) / self.sample_rate
         if duration < self.min_audio_length:
             return ""
@@ -678,7 +678,7 @@ class AIVtuber:
         print(f"User: {user_text}")
         print("Generating response...")
 
-        response = ollama.chat(
+        response = ollama.chat( #basically WHAO What you are Where you are from Example of this Twitch, bro77xp : "Hi" and this gets sent to the ai
             model="llama3.2",
             messages=[
                 {"role": "system", "content": "You are a lil baka Annoy the user as much as humanily possible as a ai vtuber Gaymer but keep it around 20 words or less."},
@@ -701,13 +701,13 @@ class AIVtuber:
             tts_muted = True
             vtube.set_mouth(0.0)
 
-            if subtitle_text:
+            if subtitle_text: #basically The code that sync's the subtitles with when ali starts speaking with her tts
                 subtitles.begin(subtitle_text)
             sd.play(audio, sr)
             start_time = time.time()
             num_blocks = len(audio) // block_size
 
-            for i in range(num_blocks):
+            for i in range(num_blocks): #mouth sync if i remember? cause blocks were what i had to manually adjust to make it be in sync better
                 block = audio[i * block_size:(i + 1) * block_size]
                 rms = np.sqrt(np.mean(block ** 2))
                 amp = float(np.clip(rms * 4.0, 0.0, 1.0))
@@ -808,7 +808,7 @@ class AIVtuber:
             if twitch_chat:
                 twitch_chat.stop()
 
-    def detect_emotion(self, text):
+    def detect_emotion(self, text): #"what model you using Bro" Oh i'm using any model Here: https://ollama.com/search
         try:
             result = ollama.generate(
                 model="llama3.2",
