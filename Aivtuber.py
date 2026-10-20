@@ -25,7 +25,7 @@ from rich.console import Console
 # ================== VTS CONFIG ===========================
 VTS_PORT = 8001
 MOUTH_PARAM = "MouthOpen"  # VTuber mouth parameter
-TOKEN_FILE = "vts_token.json"
+TOKEN_FILE = "vts_token.json" #for vtube Studio Cause Why tf not
 
 # ================== TWITCH CONFIG =======================
 TWITCH_ENABLED = False            # Set to True to enable Twitch chat
@@ -90,7 +90,7 @@ if args.whisper_model:
 if args.no_whisper_fp16:
     WHISPER_FP16 = False
 
-# Reload Whisper model if args were provided
+# Reload Whisper model if args were provided because i have no fricking cuda 
 if args.whisper_model or args.no_whisper_fp16:
     console.print(f"Reloading Whisper model '{WHISPER_MODEL}' with fp16={WHISPER_FP16}...")
     stt = whisper.load_model(WHISPER_MODEL, device=WHISPER_DEVICE)
@@ -126,7 +126,7 @@ class VoiceSynthesizer:
         except Exception as e:
             console.print(f"[red]Failed to load Chatterbox TTS: {e}[/red]")
 
-    def convert_voice(self, text):
+    def convert_voice(self, text): #67 loss of my heart soul and kindeys
         if not self.model:
             console.print("[red]Chatterbox TTS not loaded[/red]")
             sr = 24000
@@ -169,7 +169,7 @@ class VTubeStudioClient:
         self.ws = None
         self.thread = None
 
-        self.authenticated = False
+        self.authenticated = False #what am i doing rn
         self.token = self.load_token()
 
         self.hotkeys = {}
@@ -203,7 +203,7 @@ class VTubeStudioClient:
         console.print("[green]Connected to VTube Studio API[/green]")
         time.sleep(1)
 
-        if self.token:
+        if self.token: #for Some reason this used to cause a issue between hara and ali and it got annoying
             console.print("[cyan]Attempting to authenticate with stored token...[/cyan]")
             self.send_request(
                 "auth",
@@ -276,7 +276,7 @@ class VTubeStudioClient:
         message_type: str,
         data: dict | None = None
     ):
-        if not self.is_connected():
+        if not self.is_connected(): 
             return False
 
         payload = {
@@ -307,13 +307,13 @@ class VTubeStudioClient:
     # Mouth Control
     # -------------------------
 
-    def set_mouth(self, value: float):
+    def set_mouth(self, value: float): #<--- shocker mouth sync
         """
         Optimized mouth injection.
         Skips tiny updates.
         """
 
-        if not self.authenticated:
+        if not self.authenticated: #it won't Send it proby if not connected to vtube studio idk why
             return False
 
         value = max(0.0, min(1.0, float(value)))
@@ -344,12 +344,12 @@ class VTubeStudioClient:
             }
         )
 
-    def close_mouth(self):
+    def close_mouth(self): #basically WOAH no sound
         self.set_mouth(0.0)
 
     def load_token(self):
         try:
-            if not os.path.exists(TOKEN_FILE):
+            if not os.path.exists(TOKEN_FILE): #basically no token exists so It's like AYO WTF don't load something that doesn't exist
                 return None
 
             with open(TOKEN_FILE, "r", encoding="utf-8") as f:
@@ -364,7 +364,7 @@ class VTubeStudioClient:
     # Hotkeys
     # -------------------------
 
-    def trigger_hotkey(self, hotkey_id: str):
+    def trigger_hotkey(self, hotkey_id: str): #if hotkey then this action erm
         return self.send_request(
             f"hotkey_{hotkey_id}",
             "HotkeyTriggerRequest",
@@ -373,14 +373,14 @@ class VTubeStudioClient:
             }
         )
 
-    def request_hotkeys(self):
+    def request_hotkeys(self): #ngl i'm fucking dumb what does this even mean it's returning a hotkey and listing it But like why
         return self.send_request(
             "list_hotkeys",
             "HotkeysInCurrentModelRequest"
         )
 
     def auto_detect_hotkeys(self, hotkeys_list):
-        keywords = {
+        keywords = { #the emotions i struggle with:
             "happy": ["happy", "joy", "smile", "laugh", "excited", "cheer"],
             "sad": ["sad", "cry", "depress", "upset", "frown", "tear"],
             "angry": ["angry", "mad", "rage", "furious", "annoyed", "upset"],
@@ -408,7 +408,7 @@ vtube = VTubeStudioClient()
 
 # ================== TWITCH IRC CLIENT ==================
 
-class TwitchChatListener:
+class TwitchChatListener: 
     def __init__(self):
         self.host = "irc.chat.twitch.tv"
         self.port = 6697
@@ -417,7 +417,7 @@ class TwitchChatListener:
         self.thread = None
         self.message_queue = queue.Queue()
 
-    def connect(self):
+    def connect(self): #is this like for if it's connected to twitch or nah
         try:
             self.sock = ssl.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
             self.sock.connect((self.host, self.port))
@@ -434,7 +434,7 @@ class TwitchChatListener:
             console.print(f"[red]Twitch connection failed:[/red] {e}")
             return False
 
-    def _send_raw(self, message):
+    def _send_raw(self, message): #sending message proby
         if self.sock:
             self.sock.send((message + "\r\n").encode("utf-8"))
 
@@ -447,7 +447,7 @@ class TwitchChatListener:
         while self.running:
             try:
                 data = self.sock.recv(4096).decode("utf-8", errors="ignore")
-                if not data:
+                if not data: #the wifi proby dead rn
                     console.print("[yellow]Twitch connection lost. Reconnecting...[/yellow]")
                     self._reconnect()
                     continue
@@ -461,7 +461,7 @@ class TwitchChatListener:
                 console.print(f"[red]Twitch listen error:[/red] {e}")
                 self._reconnect()
 
-    def _handle_line(self, line):
+    def _handle_line(self, line): #WHY ARE WE PLAYING PING PONG
         if line.startswith("PING"):
             self._send_raw("PONG :tmi.twitch.tv")
             return
@@ -478,7 +478,7 @@ class TwitchChatListener:
         except Exception:
             pass
 
-    def _reconnect(self):
+    def _reconnect(self): #i love writing stupid notes
         self.running = False
         try:
             self.sock.close()
