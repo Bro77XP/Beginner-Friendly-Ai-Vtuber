@@ -16,7 +16,7 @@ py -3.10 -m venv venv
 
 - **Whisper** (base.en model) - Real-time speech-to-text in English with adaptive noise VAD
 - **Ollama** (llama3.2) - AI model for generating VTuber responses
-- **Chatterbox Turbo TTS** - Fast text-to-speech with zero-shot voice cloning
+- **Chatterbox Turbo TTS And Chatterbox nano** - Fast text-to-speech with zero-shot voice cloning
 - **Adaptive VAD** - Learns ambient noise floor, auto-tunes silence threshold, trims leading silence
 - **Audio normalization** - Pre-processes audio for optimal Whisper accuracy
 - **Continuous listening loop** - Runs forever until Ctrl+C
